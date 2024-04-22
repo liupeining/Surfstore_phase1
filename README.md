@@ -33,7 +33,7 @@ message FileMetaData {
 service BlockStore {
     rpc GetBlock (BlockHash) returns (Block) {}
     rpc PutBlock (Block) returns (Success) {}
-    rpc HasBlocks (BlockHashes) returns (BlockHashes) {}
+    rpc MissingBlocks (BlockHashes) returns (BlockHashes) {}
 }
 
 service MetaStore {
@@ -78,8 +78,8 @@ type BlockStoreInterface interface {
 	PutBlock(ctx context.Context, block *Block) (*Success, error)
 
 	// Given a list of hashes “in”, returns a list containing the
-	// subset of in that are stored in the key-value store
-	HasBlocks(ctx context.Context, blockHashesIn *BlockHashes) (*BlockHashes, error)
+	// missing hashes that are stored in the key-value store
+	MissingBlocks(ctx context.Context, blockHashesIn *BlockHashes) (*BlockHashes, error)
 }
 ```
 
