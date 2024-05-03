@@ -43,7 +43,7 @@ service MetaStore {
 }
 ```
 
-**You need to generate the gRPC client and server interfaces from our .proto service definition.** We do this using the protocol buffer compiler protoc with a special gRPC Go plugin (The [gRPC official documentation](https://grpc.io/docs/languages/go/basics/) introduces how to install the protocol compiler plugins for Go).
+**You need to generate the gRPC client and server interfaces from our .proto service definition.** We do this using the protocol buffer compiler protoc with a special gRPC Go plugin (The [gRPC official documentation](https://grpc.io/docs/languages/go/quickstart/) introduces how to install the protocol compiler plugins for Go).
 
 ```shell
 protoc --proto_path=. --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative pkg/surfstore/SurfStore.proto
@@ -78,7 +78,7 @@ type BlockStoreInterface interface {
 	PutBlock(ctx context.Context, block *Block) (*Success, error)
 
 	// Given a list of hashes “in”, returns a list containing the
-	// missing hashes that are stored in the key-value store
+	// hashes that are not stored in the key-value store
 	MissingBlocks(ctx context.Context, blockHashesIn *BlockHashes) (*BlockHashes, error)
 }
 ```
