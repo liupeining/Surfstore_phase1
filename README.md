@@ -1,3 +1,4 @@
+[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/xKTb2nqJ)
 # Surfstore
 
 This is the starter code for the SurfStore project
@@ -32,7 +33,7 @@ message FileMetaData {
 service BlockStore {
     rpc GetBlock (BlockHash) returns (Block) {}
     rpc PutBlock (Block) returns (Success) {}
-    rpc HasBlocks (BlockHashes) returns (BlockHashes) {}
+    rpc MissingBlocks (BlockHashes) returns (BlockHashes) {}
 }
 
 service MetaStore {
@@ -42,7 +43,7 @@ service MetaStore {
 }
 ```
 
-**You need to generate the gRPC client and server interfaces from our .proto service definition.** We do this using the protocol buffer compiler protoc with a special gRPC Go plugin (The [gRPC official documentation](https://grpc.io/docs/languages/go/basics/) introduces how to install the protocol compiler plugins for Go).
+**You need to generate the gRPC client and server interfaces from our .proto service definition.** We do this using the protocol buffer compiler protoc with a special gRPC Go plugin (The [gRPC official documentation](https://grpc.io/docs/languages/go/quickstart/) introduces how to install the protocol compiler plugins for Go).
 
 ```shell
 protoc --proto_path=. --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative pkg/surfstore/SurfStore.proto
@@ -77,8 +78,8 @@ type BlockStoreInterface interface {
 	PutBlock(ctx context.Context, block *Block) (*Success, error)
 
 	// Given a list of hashes “in”, returns a list containing the
-	// subset of in that are stored in the key-value store
-	HasBlocks(ctx context.Context, blockHashesIn *BlockHashes) (*BlockHashes, error)
+	// hashes that are not stored in the key-value store
+	MissingBlocks(ctx context.Context, blockHashesIn *BlockHashes) (*BlockHashes, error)
 }
 ```
 
